@@ -9,16 +9,8 @@ use Nette\Utils\ArrayHash;
 
 
 
-class HomepagePresenter extends Nette\Application\UI\Presenter
+class HomepagePresenter extends BasePresenter
 {
-
-    /**
-     * @inject
-     * @var Context
-     */
-    public $database;
-
-
 
     public function renderDefault()
     {

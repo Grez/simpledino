@@ -2,24 +2,14 @@
 
 namespace App\Presenters;
 
-use Nette;
 use Nette\Application\UI\Form;
-use Nette\Database\Context;
 use Nette\Database\Table\IRow;
 use Nette\Utils\ArrayHash;
 
 
 
-class TopicsPresenter extends Nette\Application\UI\Presenter
+class TopicsPresenter extends BasePresenter
 {
-
-    /**
-     * @inject
-     * @var Context
-     */
-    public $database;
-
-
 
     public function renderDetail(int $id)
     {
