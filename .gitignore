@@ -5,3 +5,5 @@ log/*
 !log/.gitignore
 .idea
 .DS_Store
+www/bower_components
+
