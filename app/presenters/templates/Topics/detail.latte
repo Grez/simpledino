@@ -1,0 +1,14 @@
+{block content}
+
+	<h1>{$topic->name}</h1>
+	<p>{$topic->description}</p>
+	<p><a n:href="Homepage:default">Zpět na seznam témat</a></p>
+
+	{control addPostForm}
+
+	<div class="topics">
+		<div n:foreach="$topic->related('posts') as $post">
+			<h2>{$post->author}</h2>
+			<p>{$post->body}</p>
+		</div>
+	</div>
