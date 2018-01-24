@@ -17,4 +17,11 @@ class BaseForm extends Form
         $this->setRenderer(new Bs3FormRenderer());
     }
 
+
+
+    public function enableAjax()
+    {
+        $this->form->getElementPrototype()->addClass('ajax');
+    }
+
 }

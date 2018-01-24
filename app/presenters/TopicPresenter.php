@@ -38,6 +38,7 @@ class TopicPresenter extends BasePresenter
     protected function createComponentAddPostForm()
     {
         $form = new BaseForm();
+        $form->enableAjax();
         $form->addProtection();
 
         $form->addText('author', 'Autor')
@@ -51,7 +52,13 @@ class TopicPresenter extends BasePresenter
         $form->onSuccess[] = function (Form $form, ArrayHash $values) {
             $this->postManager->createPost($this->getTopic()->id, $values->author, $values->body);
             $this->successFlashMessage('Příspěvek přidán');
-            $this->redirect('this');
+
+            if ($this->isAjax()) {
+                $form->reset();
+                $this->redrawControl();
+            } else {
+                $this->redirect('this');
+            }
         };
 
         return $form;
