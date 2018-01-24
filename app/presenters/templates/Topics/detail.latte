@@ -9,6 +9,6 @@
 	<div class="topics">
 		<div n:foreach="$topic->related('posts') as $post">
 			<h2>{$post->author}</h2>
-			<p>{$post->body}</p>
+			<p>{$post->body|breaklines}</p>
 		</div>
 	</div>

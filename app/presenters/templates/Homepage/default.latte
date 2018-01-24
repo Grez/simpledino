@@ -9,6 +9,6 @@
 	<div class="topics">
 		<div n:foreach="$topics as $topic">
 			<h2><a n:href="Topics:detail, id => $topic->id">{$topic->name}</a></h2>
-			<p>{$topic->description}</p>
+			<p>{$topic->description|breaklines}</p>
 		</div>
 	</div>
