@@ -15,7 +15,10 @@ gulp.task('css', function() {
 
 gulp.task('js', function () {
 	var files = [
+		'./www/bower_components/jquery/dist/jquery.min.js',
+		'./www/bower_components/nette.ajax.js/nette.ajax.js',
 		'./www/bower_components/bootstrap/dist/js/bootstrap.min.js',
+		'./www/bower_components/nette-forms/src/assets/netteForms.min.js',
 	];
 
 	return gulp.src(files)
