@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Forms\BaseForm;
 use Nette;
 use Nette\Application\UI\Form;
 use Nette\Database\Context;
@@ -23,7 +24,7 @@ class HomepagePresenter extends BasePresenter
 
     protected function createComponentAddTopicForm()
     {
-        $form = new Form();
+        $form = new BaseForm();
         $form->addProtection();
 
         $form->addText('name', 'Téma')

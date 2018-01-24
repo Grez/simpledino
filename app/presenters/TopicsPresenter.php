@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Forms\BaseForm;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\IRow;
 use Nette\Utils\ArrayHash;
@@ -29,7 +30,7 @@ class TopicsPresenter extends BasePresenter
 
     protected function createComponentAddPostForm()
     {
-        $form = new Form();
+        $form = new BaseForm();
         $form->addProtection();
 
         $form->addText('author', 'Autor')
