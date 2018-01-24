@@ -9,6 +9,9 @@
   "author": "grez",
   "license": "MIT",
   "devDependencies": {
-    "gulp": "^4.0.0"
+    "gulp": "^4.0.0",
+    "gulp-bower": "0.0.14",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^3.0.0"
   }
 }
