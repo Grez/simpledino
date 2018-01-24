@@ -48,7 +48,7 @@ class TopicsPresenter extends BasePresenter
                 'body' => $values->body,
             ]);
 
-            $this->flashMessage('Příspěvek přidán', 'success');
+            $this->successFlashMessage('Příspěvek přidán');
             $this->redirect('this');
         };
 
@@ -64,7 +64,7 @@ class TopicsPresenter extends BasePresenter
             ->fetch();
 
         if ($topic === FALSE) {
-            $this->flashMessage('Toto téma neexistuje', 'danger');
+            $this->dangerFlashMessage('Toto téma neexistuje');
             $this->redirect('Homepage:default');
         }
 

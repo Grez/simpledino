@@ -42,7 +42,7 @@ class HomepagePresenter extends BasePresenter
                 ->fetch();
 
             if ($topic === FALSE) {
-                $this->flashMessage('Téma už existuje', 'danger');
+                $this->dangerFlashMessage('Téma už existuje');
                 $this->redirect('this');
             }
         };
@@ -53,7 +53,7 @@ class HomepagePresenter extends BasePresenter
                 'description' => $values->description,
             ]);
 
-            $this->flashMessage('Příspěvek přidán', 'sucess');
+            $this->successFlashMessage('Téma přidáno');
             $this->redirect('Topics:detail', ['id' => $topic->id]);
         };
 
