@@ -38,6 +38,21 @@ class TopicManager
 
 
 
+    public function getTopicById(int $id): ?IRow
+    {
+        $topic = $this->database->table('topics')
+            ->where('id', $id)
+            ->fetch();
+
+        if ($topic === FALSE) {
+            return NULL;
+        }
+
+        return $topic;
+    }
+
+
+
     public function createTopic(string $name, string $description): IRow
     {
         $topic = $this->database->table('topics')->insert([

@@ -3,27 +3,34 @@
 namespace App\Presenters;
 
 use App\Forms\BaseForm;
+use App\Model\PostManager;
+use App\Model\TopicManager;
 use Nette\Application\UI\Form;
 use Nette\Database\Table\IRow;
 use Nette\Utils\ArrayHash;
 
 
 
-class TopicsPresenter extends BasePresenter
+class TopicPresenter extends BasePresenter
 {
+
+    /**
+     * @inject
+     * @var PostManager
+     */
+    public $postManager;
+
+    /**
+     * @inject
+     * @var TopicManager
+     */
+    public $topicManager;
+
+
 
     public function renderDetail(int $id)
     {
-        $topic = $this->database->table('topics')
-            ->where('id', $id)
-            ->fetch();
-
-        if ($topic === FALSE) {
-            $this->flashMessage('Toto téma neexistuje', 'danger');
-            $this->redirect('Homepage:default');
-        }
-
-        $this->template->topic = $topic;
+        $this->template->topic = $this->getTopic();
     }
 
 
@@ -42,12 +49,7 @@ class TopicsPresenter extends BasePresenter
         $form->addSubmit('send', 'Uložit');
 
         $form->onSuccess[] = function (Form $form, ArrayHash $values) {
-            $postId = $this->database->table('posts')->insert([
-                'topic_id' => $this->getTopic()->id,
-                'author' => $values->author,
-                'body' => $values->body,
-            ]);
-
+            $this->postManager->createPost($this->getTopic()->id, $values->author, $values->body);
             $this->successFlashMessage('Příspěvek přidán');
             $this->redirect('this');
         };
@@ -59,11 +61,9 @@ class TopicsPresenter extends BasePresenter
 
     private function getTopic(): IRow
     {
-        $topic = $this->database->table('topics')
-            ->where('id', $this->getParameter('id'))
-            ->fetch();
+        $topic = $this->topicManager->getTopicById($this->getParameter('id'));
 
-        if ($topic === FALSE) {
+        if ($topic === NULL) {
             $this->dangerFlashMessage('Toto téma neexistuje');
             $this->redirect('Homepage:default');
         }

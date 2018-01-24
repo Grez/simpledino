@@ -46,7 +46,7 @@ class HomepagePresenter extends BasePresenter
         $form->onSuccess[] = function (Form $form, ArrayHash $values) {
             $topic = $this->topicManager->createTopic($values->name, $values->description);
             $this->successFlashMessage('Téma přidáno');
-            $this->redirect('Topics:detail', ['id' => $topic->id]);
+            $this->redirect('Topic:detail', ['id' => $topic->id]);
         };
 
         return $form;
