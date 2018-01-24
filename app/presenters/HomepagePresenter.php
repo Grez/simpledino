@@ -3,9 +3,8 @@
 namespace App\Presenters;
 
 use App\Forms\BaseForm;
-use Nette;
+use App\Model\TopicManager;
 use Nette\Application\UI\Form;
-use Nette\Database\Context;
 use Nette\Utils\ArrayHash;
 
 
@@ -13,10 +12,17 @@ use Nette\Utils\ArrayHash;
 class HomepagePresenter extends BasePresenter
 {
 
+    /**
+     * @inject
+     * @var TopicManager
+     */
+    public $topicManager;
+
+
+
     public function renderDefault()
     {
-        $this->template->topics = $this->database->table('topics')
-            ->order('name')
+        $this->template->topics = $this->topicManager->getTopics()
             ->fetchAll();
     }
 
@@ -28,7 +34,8 @@ class HomepagePresenter extends BasePresenter
         $form->addProtection();
 
         $form->addText('name', 'Téma')
-            ->setRequired();
+            ->setRequired()
+            ->addRule([$this->topicManager, 'validateTopicName'], 'Toto téma už existuje');
 
         $form->addTextArea('description', 'Popisek')
             ->setRequired()
@@ -36,23 +43,8 @@ class HomepagePresenter extends BasePresenter
 
         $form->addSubmit('send', 'Vytvořit');
 
-        $form->onSubmit[] = function (Form $form, ArrayHash $values) {
-            $topic = $this->database->table('topics')
-                ->where('name', $values->name)
-                ->fetch();
-
-            if ($topic === FALSE) {
-                $this->dangerFlashMessage('Téma už existuje');
-                $this->redirect('this');
-            }
-        };
-
         $form->onSuccess[] = function (Form $form, ArrayHash $values) {
-            $topic = $this->database->table('topics')->insert([
-                'name' => $values->name,
-                'description' => $values->description,
-            ]);
-
+            $topic = $this->topicManager->createTopic($values->name, $values->description);
             $this->successFlashMessage('Téma přidáno');
             $this->redirect('Topics:detail', ['id' => $topic->id]);
         };
