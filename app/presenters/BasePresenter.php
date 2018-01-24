@@ -9,7 +9,7 @@ use Nette\Utils\ArrayHash;
 
 
 
-class BasePresenter extends Nette\Application\UI\Presenter
+abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
     /**
