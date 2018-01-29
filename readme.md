@@ -1,55 +1,56 @@
-Nette Web Project
-=================
+Step 1
+======
 
-This is a simple, skeleton application using the [Nette](https://nette.org). This is meant to
-be used as a starting point for your new projects.
+Run `composer install && gulp`
 
-[Nette](https://nette.org) is a popular tool for PHP web development.
-It is designed to be the most usable and friendliest as possible. It focuses
-on security and performance and is definitely one of the safest PHP frameworks.
+Step 2
+======
 
+Create `config.local.neon`
 
-Requirements
-------------
-
-PHP 5.6 or higher.
+```
+parameters:
 
 
-Installation
-------------
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=simpledino'
+	user: root
+	password: root
+```
 
-The best way to install Web Project is using Composer. If you don't have Composer yet,
-download it following [the instructions](https://doc.nette.org/composer). Then use command:
+Step 3
+======
 
-	composer create-project nette/web-project path/to/install
-	cd path/to/install
+Create database
+
+```
+-- Adminer 4.3.1 MySQL dump
+
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `topic_id` int(11) NOT NULL,
+  `author` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `body` text COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `topic_id` (`topic_id`),
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
-Make directories `temp/` and `log/` writable.
+DROP TABLE IF EXISTS `topics`;
+CREATE TABLE `topics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
-Web Server Setup
-----------------
-
-The simplest way to get started is to start the built-in PHP server in the root directory of your project:
-
-	php -S localhost:8000 -t www
-
-Then visit `http://localhost:8000` in your browser to see the welcome page.
-
-For Apache or Nginx, setup a virtual host to point to the `www/` directory of the project and you
-should be ready to go.
-
-**It is CRITICAL that whole `app/`, `log/` and `temp/` directories are not accessible directly
-via a web browser. See [security warning](https://nette.org/security-warning).**
-
-Notice: Composer PHP version
-----------------------------
-This project forces `PHP 5.6` as your PHP version for Composer packages. If you have newer version on production you should change it in `composer.json`.
-```json
-"config": {
-	"platform": {
-		"php": "7.0"
-	}
-}
+-- 2018-01-29 10:25:43
 ```
