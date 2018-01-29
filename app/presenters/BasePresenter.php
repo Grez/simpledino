@@ -12,14 +12,6 @@ use Nette\Utils\ArrayHash;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
 
-    /**
-     * @inject
-     * @var Context
-     */
-    public $database;
-
-
-
     protected function infoFlashMessage(string $message)// : void
     {
         $this->flashMessage($message, 'info');
