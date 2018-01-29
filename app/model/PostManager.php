@@ -32,6 +32,7 @@ class PostManager
 
     public function createPost(int $topicId, string $author, string $body): IRow
     {
+        /** @var IRow $post */
         $post = $this->database->table('posts')->insert([
             'topic_id' => $topicId,
             'author' => $author,

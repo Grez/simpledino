@@ -55,6 +55,7 @@ class TopicManager
 
     public function createTopic(string $name, string $description): IRow
     {
+        /** @var IRow $topic */
         $topic = $this->database->table('topics')->insert([
             'name' => $name,
             'description' => $description,

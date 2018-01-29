@@ -1,0 +1,7 @@
+parameters:
+	autoload_directories:
+		- %rootDir%/../../../App
+
+includes:
+	- vendor/phpstan/phpstan-nette/extension.neon
+	- vendor/phpstan/phpstan-nette/rules.neon
